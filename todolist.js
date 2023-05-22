@@ -1,46 +1,14 @@
-const buttontdl = document.querySelector('.buttoninput')
-const listtdl = document.querySelector('.todolist')
+function addTask() {
+    var taskInput = document.getElementById('taskInput');
+    var taskList = document.getElementById('taskList');
 
-function clickButton(e) {
-    e.preventDefault()
-
-    const itemall = document.createElement('div')
-    itemall.classList.add('itemall')
-
-    const item = document.createElement('p')
-    item.classList.add('item')
-    item.innerText = inputtdl.value
-    itemall.appendChild(item)
-
-    if ( inputtdl.value === '' ) return
-
-    const checkbutton = document.createElement("button")
-    checkbutton.innerHTML = '<i class="fa-solid fa-check"></i>' 
-    checkbutton.classList.add("check-button")
-    itemall.appendChild(checkbutton)
-
-    const trashbutton = document.createElement("button")
-    trashbutton.innerHTML = '<i class="fa-solid fa-trash"></i>' 
-    trashbutton.classList.add("trash-button")
-    itemall.appendChild(trashbutton)
-
-    listtdl.appendChild(itemall)
-    inputtdl.value = ''
-}
-
-function okdel(e) {
-    const item = e.target
-
-    if ( item.classList[0] === 'check-button') {
-        const todolist = item.parentElement
-        todolist.classList.toggle('checklist')
-    }
-
-    if ( item.classList[0] === 'trash-button') {
-        const todolist = item.parentElement
-        todolist.remove()
+    if (taskInput.value !== '') {
+        var taskItem = document.createElement('li');
+        taskItem.innerText = taskInput.value;
+        taskItem.addEventListener('click', function() {
+            taskItem.classList.toggle('completed');
+        });
+        taskList.appendChild(taskItem);
+        taskInput.value = '';
     }
 }
-
-buttontdl.addEventListener('click', clickButton)
-listtdl.addEventListener('click', okdel)
