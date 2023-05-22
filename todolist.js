@@ -1,14 +1,28 @@
-function addTask() {
-    var taskInput = document.getElementById('taskInput');
-    var taskList = document.getElementById('taskList');
+let display = document.getElementById('display');
 
-    if (taskInput.value !== '') {
-        var taskItem = document.createElement('li');
-        taskItem.innerText = taskInput.value;
-        taskItem.addEventListener('click', function() {
-            taskItem.classList.toggle('completed');
-        });
-        taskList.appendChild(taskItem);
-        taskInput.value = '';
-    }
-}
+let buttons = Array.from(document.getElementsByClassName('button'));
+
+buttons.map(button => {
+    button.addEventListener('click', (e) => {
+        switch (e.target.innerText) {
+            case 'C':
+                display.innerText = '';
+                break;
+            case '←':
+                if (display.innerText) {
+                    display.innerText = display.innerText.slice(0, -1);
+                }
+                break;
+            case '=':
+                try {
+                    display.innerText = eval(display.innerText);
+                }
+                catch {
+                    display.innerText = 'Error!';
+                }
+                break;
+            default:
+                display.innerText += e.target.innerText;
+        }
+    })
+});
